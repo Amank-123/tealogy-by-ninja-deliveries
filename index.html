@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tealogy Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .menu-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .menu-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            font-style: "sensrif";
+            color: #090909;
+        }
+
+        .menu-content {
+            padding: 30px;
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            align-self: center;
+
+        }
+
+        .category-section img,
+        .combo-card img {
+            width: 100%;
+            /* Take full width of parent */
+            max-width: 600px;
+            /* Limit size so it doesn’t get too big */
+            height: auto;
+            /* Maintain aspect ratio */
+            display: block;
+            /* Remove inline spacing */
+            margin: 0 auto 20px;
+            /* Center the image with space below */
+            border-radius: 10px;
+            /* Optional: rounded corners */
+            object-fit: cover;
+            /* Crops image nicely if proportions differ */
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            color: #333;
+            flex-grow: 1;
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-left: 20px;
+        }
+
+        .price-suffix {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .combo-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .combo-header {
+            text-align: center;
+            padding: 25px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .combo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 30px 30px 30px;
+        }
+
+        .combo-card {
+            background: white;
+            color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .combo-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .combo-items {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .combo-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            background: #f8f9ff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .menu-title {
+                font-size: 1.8rem;
+            }
+
+            .menu-header {
+                padding: 25px 15px;
+            }
+
+            .menu-content {
+                padding: 15px;
+            }
+
+            .category-section {
+                margin-bottom: 30px;
+            }
+
+            .category-title {
+                font-size: 1.3rem;
+            }
+
+            .category-content {
+                padding: 15px;
+            }
+
+            .item-name {
+                font-size: 1rem;
+            }
+
+            .item-price {
+                font-size: 1rem;
+            }
+
+            .combo-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px 20px 15px;
+            }
+
+            .combo-header {
+                font-size: 1.5rem;
+                padding: 20px 15px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .category-title {
+                font-size: 1.2rem;
+            }
+
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .item-price {
+                margin-left: 0;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-container">
+        <div class="menu-header">
+            <h1 class="menu-title">Tealogy Menu</h1>
+            <p class="menu-subtitle">Crafted with Care by Ninja Deliveries</p>
+        </div>
+
+        <div class="menu-content">
+            <!-- Mojitos Section -->
+            <div class="category-section">
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title"> Mojitos</h2>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_IeWE8pzmDNNgESjcPvpC9Il4yrn4JtLyHgCDY0Qc4Pw0TZwDPv0viuzb7R4jIXMiY08&usqp=CAU"
+                        alt="alternative-text">
+                </div>
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Virgin Mojito</span>
+                        <span class="item-price">₹120</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Watermelon Mojito</span>
+                        <span class="item-price">₹150</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Strawberry Mojito</span>
+                        <span class="item-price">₹150</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Blueberry Mojito</span>
+                        <span class="item-price">₹170</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chai & Coffee Section -->
+            <div class="category-section">
+
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Kesar Chai <span class="price-suffix">(R/M)</span></span>
+                        <span class="item-price">₹40/₹60</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Rose Chai <span class="price-suffix">(R/M)</span></span>
+                        <span class="item-price">₹40/₹60</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Chocolate Chai <span class="price-suffix">(R/M)</span></span>
+                        <span class="item-price">₹40/₹60</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Hot Coffee</span>
+                        <span class="item-price">₹40</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Cold Coffee</span>
+                        <span class="item-price">₹100</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Cold Coffee with Ice Cream</span>
+                        <span class="item-price">₹120</span>
+                    </div>
+                </div>
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">☕ Chai & Coffee</h2>
+                    <img src="https://img-cdn.publive.online/fit-in/1280x960/filters:format(webp)/indian-express-malayalam/media/media_files/uploads/2022/07/tea-and-coffee.jpg"
+                        alt="alternative-text">
+                </div>
+            </div>
+
+            <!-- Pizza & Breads Section -->
+            <div class="category-section">
+
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">🍕 Pizza & Breads</h2>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLGVNICBQkHtVhnROiQx5xeNuQNYQgZungVQ&s"
+                        alt="alternative-text">
+                </div>
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Margarita</span>
+                        <span class="item-price">₹179</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Corn Capsicum</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Vegetable Pizza</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Tandoori Paneer Pizza</span>
+                        <span class="item-price">₹249</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Paneer Tikka Butter Masala Pizza</span>
+                        <span class="item-price">₹249</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Cheese Garlic Bread</span>
+                        <span class="item-price">₹199</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Stuffed Garlic Bread</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sandwiches Section -->
+            <div class="category-section">
+
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Cheese Corn Sandwich</span>
+                        <span class="item-price">₹199</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Paneer Taka Tak Sandwich</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                </div>
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">🥪 Sandwiches</h2>
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/iRdRh2aQLMmFChoUQNxn//Z"
+                        alt="alternative-text">
+                </div>
+
+            </div>
+
+            <!-- Snacks & Salads Section -->
+            <div class="category-section">
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">🥗 Indo Chinese & Snacks</h2>
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/">
+                </div>
+
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Honey Chilli Potato</span>
+                        <span class="item-price">₹249</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Paneer Pakora</span>
+                        <span class="item-price">₹199</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Peanut Masala</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Paneer Salad</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shakes Section -->
+            <div class="category-section">
+
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Chocolate Shake</span>
+                        <span class="item-price">₹149</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Oreo Shake</span>
+                        <span class="item-price">₹199</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Choco Chip Shake</span>
+                        <span class="item-price">₹219</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Snickers Shake</span>
+                        <span class="item-price">₹249</span>
+                    </div>
+                </div>
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">🥤 Shakes</h2>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDQVIDXS1_bz04u3LOYBLYkPEyNAWCXMY4rQ&s"
+                        alt="alternative-text">
+                </div>
+            </div>
+
+            <!-- Main Course Section -->
+            <div class="category-section">
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">🍛 Main Course</h2>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuMrHuF7xZN3J4lFdciW7jpLHIYj33EHRMtg&s"
+                        alt="alternative-text">
+                </div>
+
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Kadhai Paneer <span class="price-suffix">(Half/Full)</span></span>
+                        <span class="item-price">₹149/₹199</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Tawa Roti</span>
+                        <span class="item-price">₹30</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Boondi Raita</span>
+                        <span class="item-price">₹60</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts Section -->
+            <div class="category-section">
+
+
+                <div class="category-content">
+                    <div class="menu-item">
+                        <span class="item-name">Mix Fusion Ice Cream</span>
+                        <span class="item-price">₹99</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Brownie with Ice Cream</span>
+                        <span class="item-price">₹149</span>
+                    </div>
+                </div>
+                <div style="display: flex;width: 50%; flex-direction: column;">
+                    <h2 class="category-title">🍨 Desserts</h2>
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/" alt="alternative-text">
+                </div>
+            </div>
+
+            <!-- Special Combos Section -->
+            <div class="combo-section">
+
+                <div class="combo-header">🎉 Special Combos</div>
+                <div class="combo-grid">
+                    <div class="combo-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuTLlQNiK4QN40xgbHblispWti9NCh4SXXMA&s"
+                            alt="alternative-text">
+                        <div class="combo-title">The Party Starter Combo</div>
+                        <div class="combo-items">
+                            • Any 1 Mojito<br>
+                            • Cheese Garlic Bread<br>
+                            • Any 1 Shake
+                        </div>
+                        <div class="combo-price">₹419</div>
+                    </div>
+
+                    <div class="combo-card">
+                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/" alt="alternative-text"
+                            width="480px" height="360px">
+                        <div class="combo-title">The Big Chill Combo</div>
+                        <div class="combo-items">
+                            • Any 2 Mojitos<br>
+                            • Tandoori Paneer Pizza<br>
+                            • Brownie with Ice Cream
+                        </div>
+                        <div class="combo-price">₹549</div>
+                    </div>
+
+                    <div class="combo-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOoFFo9zx3Z9zU4WwrCtUR9UKgR8djcE-5BA&s"
+                            alt="alternative-text" width="480px" height="360px">
+                        <div class="combo-title">Full On Feast</div>
+                        <div class="combo-items">
+                            • Any 2 Mojitos<br>
+                            • Stuffed Garlic Bread<br>
+                            • Honey Chilli Potato
+                        </div>
+                        <div class="combo-price">₹599</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
